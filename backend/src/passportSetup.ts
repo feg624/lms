@@ -1,6 +1,6 @@
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
-const LocalStrategy = require('passport-local').Strategy;
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
+import { Strategy as LocalStrategy } from 'passport-local';
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -9,7 +9,7 @@ passport.use(new GoogleStrategy({
   },
   function(accessToken, refreshToken, profile, done) {
     let userProfile = profile; // In here we can add more attributes to the user profile from our own DB
-    return done(null, userProfile);
+    done(null, userProfile);
   }
 ));
 
@@ -39,6 +39,6 @@ passport.serializeUser(function(user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function(user: Express.User, done) {
   done(null, user);
 });

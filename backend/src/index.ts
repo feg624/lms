@@ -1,11 +1,23 @@
-require('dotenv').config();
-const express = require('express');
-const session = require('cookie-session');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-require('./passportSetup');
-const passport = require('passport');
-const authRoute = require('./routes/auth');
+import 'dotenv/config';
+import express from 'express';
+import session from 'cookie-session';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import './passportSetup';
+import passport from 'passport';
+import authRoute from './routes/auth';
+
+// Workaround to add attributes to the Passport User
+declare global {
+  namespace Express {
+    interface User {
+      displayName: string;
+      email: string;
+      picture: string;
+    }
+  }
+};
+
 const app = express();
 
 app.use(session(
