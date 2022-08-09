@@ -32,7 +32,7 @@ const Login = () => {
 
   return (
     <Container>
-      <h2 className='text-center mt-3'>Choose the login method</h2>
+      <h2 className='text-center mt-3'>Choose a login method</h2>
       <div className='d-flex align-items-stretch'>
         <Form className='border border-2 p-3 m-3 flex-grow-1'>
           <Alert color="danger" isOpen={oauthLoginFailure} toggle={onDismissOauthLoginFailure}>Couldn't authenticate with 3rd party provider.</Alert>
