@@ -48,7 +48,7 @@ const Login = () => {
             <Label>Password</Label>
             <Input id='password' name='password' type='password'/>
           </FormGroup>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' color='primary'>Submit</Button>
         </Form>
       </div>
     </Container>

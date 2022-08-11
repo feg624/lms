@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Nav, Navbar, NavbarToggler, NavItem, NavbarText, NavLink } from 'reactstrap';
+import { Collapse, Nav, Navbar, NavbarToggler, NavbarText, NavLink } from 'reactstrap';
 import { Link, Outlet } from 'react-router-dom';
 
 const Navigation = ({user}) => {
@@ -13,32 +13,67 @@ const Navigation = ({user}) => {
 
   return (
     <>
-      <Navbar color='dark' dark={true} expand={true}>
+      <Navbar color='dark' dark expand>
         <Link className='navbar-brand' to='/'>LMS</Link>
-        <NavbarToggler onClick={toggle}/>
-        <Collapse className='justify-content-end' isOpen={isOpen} navbar>
-          <Nav navbar>
-            {user ? (
-              <>
-                {user.picture ? (
-                  <>
-                    <img src={user.picture} className='rounded' height={40} alt={user.name}/>
-                    &nbsp;
-                  </>
-                ) : (
-                  <></>
-                )}
-                <NavbarText>{user.name}</NavbarText>
-                <NavItem>
-                  <NavLink href='#' onClick={logout}>Logout</NavLink>
-                </NavItem>
-              </>
-            ) : (
-              <NavItem><Link className='nav-link' to='/login'>Login</Link></NavItem>
-            )}
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav navbar className='d-flex flex-grow-1'>
+              {user ? (
+                <>
+                  {user.superAdmin ? (
+                    <>
+                      <Link className='nav-link' to='/users'>Users</Link>
+                      <Link className='nav-link' to='/schools'>Schools</Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  {user.schoolAdmin ? (
+                    <>
+                      <Link className='nav-link' to={`/schools/${user.school.id}/users`}>School Users</Link>
+                      <Link className='nav-link' to={`/schools/${user.school.id}/courses`}>Courses</Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  {user.teacher ? (
+                    <>
+                      <Link className='nav-link' to={`/teachers/${user.teacher.id}/courses`}>My Courses</Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  {user.student ? (
+                    <>
+                      <Link className='nav-link' to={`/students/${user.student.id}/courses`}>My Courses</Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  <div className='d-flex ms-auto'>
+                    {user.picture ? (
+                      <>
+                        <img src={user.picture} className='rounded ms-auto' height={40} alt={user.name}/>
+                        &nbsp;
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                    <NavbarText>{user.name}{user.school ? (' (' + user.school.name + ')') : ''}</NavbarText>
+                    <NavLink href='#' onClick={logout}>Logout</NavLink>
+                  </div>
+                </>
+              ) : (
+                <Link className='nav-link ms-auto' to='/login'>Login</Link>
+              )}
           </Nav>
         </Collapse>
       </Navbar>
+
       <Outlet/>
     </>
   );
