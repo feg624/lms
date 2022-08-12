@@ -20,6 +20,6 @@ export const LMSDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: [User, SuperAdmin, School, SchoolUser, SchoolAdmin, Teacher, Student, Course, Attendee],
-    migrations: [],
+    migrations: ['src/migration/*.ts'],
     subscribers: [],
 });
