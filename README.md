@@ -30,3 +30,6 @@ Postgres
 - Implement pending entities from the ERD.
 - Unit testing.
 - CRUD features.
+
+## Demo
+![Demo](docs/demo.gif)
